@@ -1,0 +1,46 @@
+
+conversion of old-format katas to new-format katas...
+-----------------------------------------------------
+
+The converter will
+o) upgrade from old format manifest to new-format
+   Conversion needs to be based on the image-name.
+   Conversion would also incorporate the display-name renames.
+   There will also be katas for test-frameworks that
+   are no longer live. Eg the acceptance-based ones.
+   And some that were put offline because they were too slow.
+o) upgrade old style katas (that used the .git format) to the
+   new non-git format, one dir per traffic-light.
+
+This will simplify the web model quite a lot.
+
+This could be called from inside the storer (on a per kata basis).
+Whenever the storer does anything, it first informs
+the converter to convert the kata with the given id.
+
+Or it could be run as a one-time conversion. If in the later mode,
+will need to mount a katas docker data-volume.
+
+
+Strategy for doing this...
+--------------------------
+Do this in chunks. Naturally have 256 top level
+dirs (00/ --> FF/). Do one chunk first.
+Got that from the main live server in local katas_42.tgz file.
+
+If an old-kata format is detected I should first create
+a test for this and capture the kata-id in a read-only
+kata volume. Similar to what I do for the storer testing
+where I have to create a volume with a kata in the old git
+format inside it. Remember I do this by storing the tgz
+file in the git repo and tar-unpiping it into a container.
+
+How to "unroll" this to the main katas volume?
+How about leaving
+katas/01/2345678/ in place and creating its new version in
+new/01/2345678/
+And, if this works, then
+o) moving 01/2345678 to old/01/2345678
+o) moving new/01/2345678 to katas/01/2345678
+
+
