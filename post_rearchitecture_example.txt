@@ -1,0 +1,16 @@
+
+converter/42/0DFDE73D/manifest.json
+
+      "id": "420DFDE73D",
+      "created": [2017,9,9,5,29,38],
+      "runner_choice": "stateless",
+      "image_name": "cyberdojofoundation/python_behave",
+      "display_name": "Python, behave",
+      "filename_extension": ".py",
+      "progress_regexs": [],
+      "highlight_filenames": [],
+      "lowlight_filenames": [...],
+      "language": "Python-behave",
+      "tab_size": 4,
+      "visible_files": {...},
+      "exercise": "Fizz_Buzz_Plus"

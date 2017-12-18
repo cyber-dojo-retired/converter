@@ -28,8 +28,95 @@ Do this in chunks. Naturally have 256 top level
 dirs (00/ --> FF/). Do one chunk first.
 Got that from the main live server in local katas_42.tgz file.
 
+------------------------------------------------------------------
+
+First create a new kata and capture it so I can see exactly
+what the current format is.
+371DAC3822
+extracted that.
+$ docker run --rm \
+  --volumes-from cyber-dojo-katas-DATA-CONTAINER:ro \
+  --volume $(pwd):/backup:rw \
+  alpine:latest \
+  tar -zcf /backup/371DAC3822.tgz -C /usr/src/cyber-dojo/katas/37 1DAC3822
+
+Then
+$ tar -xf 371DAC3822.tgz
+
+keys in
+37/1DAC3822/manifest.json are
+[
+"created":[2017, 12, 13, 11, 17, 3],
+"display_name":"Python, py.test" ,
+"exercise":"100_doors",
+"filename_extension":".py" ,
+"highlight_filenames":[],
+"id":"371DAC3822" ,
+"image_name":"cyberdojofoundation/python_pytest" ,
+"lowlight_filenames":["cyber-dojo.sh", "makefile", "Makefile", "unity.license.txt"] ,
+"max_seconds":10,
+"progress_regexs":[],
+"runner_choice":"stateless",
+"tab_size":4,
+"visible_files":{ filename=>content }
+"language":"Python-py.test",
+]
+
+language gets into the manifest via
+class StartPoint
+  def name
+    # As stored in the kata's manifest.
+    # This is the reverse of start_points.rb commad()
+    display_name.split(',').map(&:strip).join('-')
+  end
+So is based on display_name
+class StartPoints
+  def commad(name)
+    # This is the reverse of start_point.rb name()
+    name.split('-', 2).join(', ')
+  end
+  def [](name)
+    all[commad(name)] || all[renamed(name)]
+  end
+  def all
+    @all ||= read_cache
+  end
+  def read_cache
+    cache = {}
+    json = disk[cache_path].read_json(cache_filename)
+    json.each do |display_name, hash|
+      args = []
+      args << hash['dir_name']
+      args << display_name
+      args << hash['image_name']
+      cache[display_name] = make(*args)
+    end
+    cache
+  end
+  def make(dir_name, display_name = nil, image_name = nil)
+    StartPoint.new(self, dir_name, display_name, image_name)
+  end
+
+
+------------------------------------------------------------------
+salmon/ dir has increments.json and 1/ dir
+increments.json
+[{"colour":"red","time":[2017,12,13,11,18,20],"number":1}]
+
+1/manifest.json
+irb
+> require 'json'
+> m = JSON.parse(IO.read('manifest.json'))
+> m.keys.sort
+["cyber-dojo.sh", "hiker.py", "instructions", "output", "test_hiker.py"]
+------------------------------------------------------------------
+
+
+
+
+
 If an old-kata format is detected I should first create
-a test for this and capture the kata-id in a read-only
+a test for this and capture the kata-id in a read-only?
 kata volume. Similar to what I do for the storer testing
 where I have to create a volume with a kata in the old git
 format inside it. Remember I do this by storing the tgz

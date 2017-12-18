@@ -1,0 +1,26 @@
+
+converter/42/0BD5D5BE/manifest.json
+
+      "id": "420BD5D5BE"
+      "created": [2016,8,1,22,54,33]
+      "language": "Python-py.test",
+      "exercise": "Fizz_Buzz",
+      "unit_test_framework": "python_pytest",
+      "tab_size": 4,
+      "visible_files": {
+        "test_hiker.py": "...",
+        "hiker.py": "...",
+        "cyber-dojo.sh": "...",
+        "output": "",
+        "instructions": "..."
+      }
+
+converter/42/0BD5D5BE/hummingbird/manifest.json
+
+      {
+        "test_hiker.py": "...",
+        "hiker.py": "...",
+        "cyber-dojo.sh": "...",
+        "output": "",
+        "instructions": "..."
+      }
