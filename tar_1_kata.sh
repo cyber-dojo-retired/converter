@@ -7,4 +7,4 @@ readonly inner=$2  # eg 1AFD7EC5
 
 readonly my_dir="$( cd "$( dirname "${0}" )" && pwd )"
 
-tar -zcf ${1}${2}.tgz -C . ${1}/${2}/
+tar -zcf ${outer}${inner}.tgz -C . ${outer}/${inner}/
