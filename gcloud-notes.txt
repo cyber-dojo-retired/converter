@@ -17,8 +17,8 @@ $ gcloud compute --project "cyber-dojo" ssh --zone "europe-west1-b" "ssd-server"
 $ pwd
 /home/jonjagger
 
-So, I created backup256th.sh file there and ran it.
-$ sudo ./backup 42
+I created backup256th.sh file there, on the cloud server, and ran it.
+$ sudo ./backup256th.sh 42
 
 Now to to scp it off.
 
@@ -30,3 +30,7 @@ And it is copying... Done.
 Checked I can untar it. Yes.
 See get256th.sh for script of ssh and scp together.
 
+NB: The files you get from untarring the tgz file will
+    not have the correct (for inside the storer katas volume)
+    rights and ownership. When you tar-pipe them into a test
+    volume remember to [chown -R] and [chmod -R]
